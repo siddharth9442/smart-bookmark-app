@@ -50,7 +50,7 @@ export default function BookmarkForm({ userId, onAdded }: { userId: string; onAd
         <button
           type="submit"
           disabled={saving}
-          className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-60"
+          className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-60 cursor-pointer"
         >
           {saving ? "Saving..." : "Add"}
         </button>

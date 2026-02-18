@@ -34,12 +34,17 @@ export default function BookmarksList({ userId }: { userId: string }) {
                 setLoading(false);
             });
 
-        // realtime subscription filtered by user_id
+        // fetch realtime bookmarks
         const channel = supabase
             .channel(`public:bookmarks:user=${userId}`)
             .on(
                 "postgres_changes",
-                { event: "*", schema: "public", table: "bookmarks", filter: `user_id=eq.${userId}` },
+                { 
+                    event: "*",
+                    schema: "public",
+                    table: "bookmarks",
+                    filter: `user_id=eq.${userId}`
+                },
                 (payload) => {
                     const { eventType, new: newRow, old: oldRow } = payload;
                     setBookmarks((prev) => {
@@ -97,7 +102,7 @@ export default function BookmarksList({ userId }: { userId: string }) {
 
                     <button
                         onClick={() => deleteBookmark(b.id)}
-                        className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg shadow-md transition-all duration-200"
+                        className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg shadow-md transition-all duration-200 cursor-pointer"
                     >
                         Delete
                     </button>

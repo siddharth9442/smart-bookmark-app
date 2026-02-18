@@ -37,11 +37,13 @@ export default function Home() {
 
   useEffect(() => {
     if (session?.user?.id) {
-      setUserId(session.user.id)
+      setUserId(session.user.id);
+
+      // set user
       setUser({
-      fullName: session.user.user_metadata.full_name,
-      avtarUrl: session.user.user_metadata.avatar_url
-    });
+        fullName: session.user.user_metadata.full_name,
+        avtarUrl: session.user.user_metadata.avatar_url
+      });
     } else {
       getCurrentUserId().then((id) => setUserId(id));
     }
@@ -63,26 +65,9 @@ export default function Home() {
   if (!session) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 to-sky-50 p-6">
-        <div className="max-w-3xl w-full bg-white/80 backdrop-blur-md border border-slate-200 rounded-2xl shadow-lg overflow-hidden">
-          <div className="md:flex">
-            {/* Left: Hero */}
-            <div className="hidden md:flex md:w-1/2 items-center justify-center bg-linear-to-tr from-blue-600 to-indigo-600 text-white p-8">
-              <div className="space-y-4 text-center">
-                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <rect x="2" y="4" width="20" height="16" rx="2" fill="rgba(255,255,255,0.08)" />
-                  <path d="M7 8h10M7 12h10M7 16h6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <h2 className="text-2xl font-semibold">Welcome to Smart Bookmarks</h2>
-                <p className="text-sm text-sky-100 max-w-xs mx-auto">
-                  Save links quickly, keep them private, and see updates instantly across tabs.
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Sign in area */}
-            <div className="w-full md:w-1/2 p-8">
+        <div className="max-w-3xl w-full p-10 bg-white/80 backdrop-blur-md border border-slate-200 rounded-2xl shadow-lg overflow-hidden">
               <div className="mb-6">
-                <h1 className="text-3xl font-extrabold text-slate-800">Welcome back</h1>
+                <h1 className="text-3xl font-extrabold text-slate-800">Welcome to Smart Bookmarks</h1>
                 <p className="mt-2 text-sm text-slate-600">
                   Sign in with Google to access your private bookmarks and sync in real time.
                 </p>
@@ -91,7 +76,7 @@ export default function Home() {
               <div className="space-y-4">
                 <button
                   onClick={signInWithGoogle}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-slate-200 rounded-lg shadow-sm bg-white hover:shadow-md transition"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-slate-200 rounded-lg shadow-sm bg-white hover:shadow-md transition cursor-pointer"
                   aria-label="Sign in with Google"
                 >
                   {/* Google icon */}
@@ -108,32 +93,6 @@ export default function Home() {
                 <div className="text-center text-xs text-slate-400">
                   By signing in you agree to the app using your Google account for authentication.
                 </div>
-
-                <div className="mt-4 border-t pt-4">
-                  <h3 className="text-sm font-semibold text-slate-700 mb-2">Why Smart Bookmarks</h3>
-                  <ul className="text-sm text-slate-600 space-y-2">
-                    <li className="flex items-start gap-2">
-                      <span className="inline-block w-2 h-2 bg-sky-500 rounded-full mt-2" />
-                      Private bookmarks tied to your Google account
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="inline-block w-2 h-2 bg-sky-500 rounded-full mt-2" />
-                      Real time sync across tabs
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="inline-block w-2 h-2 bg-sky-500 rounded-full mt-2" />
-                      Simple, fast, and mobile friendly
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-6 text-center text-xs text-slate-400">
-                <button onClick={() => { /* optional: show demo mode or help */ }} className="underline">
-                  Need help signing in
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -143,36 +102,34 @@ export default function Home() {
   return (
     <div className="bg-linear-to-br from-teal-100 to-blue-100 min-h-screen p-10 text-gray-800">
       <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-900">Your Bookmarks</h1>
-          <div>
+        {user && (
+          <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-8">
+              <img
+                src={user?.avtarUrl || "/default-profile.jpg"}
+                alt="Profile"
+                className="w-16 h-16 rounded-full mr-4 shadow-md"
+              />
+              <p className="text-xl font-medium text-gray-700">
+                <span className="font-semibold">{user?.fullName}</span>
+              </p>
+            </div>
             <button
               onClick={signOut}
-              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition"
+              className="px-4 py-2 mb-14 mr-4 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition cursor-pointer"
             >
               Logout
             </button>
           </div>
-        </div>
-
-        {user && (
-          <div className="flex items-center mb-8">
-            <img
-              src={user?.avtarUrl || "/default-profile.jpg"}
-              alt="Profile"
-              className="w-16 h-16 rounded-full mr-4 shadow-md"
-            />
-            <p className="text-xl font-medium text-gray-700">
-              <span className="font-semibold">{user?.fullName}</span>
-            </p>
-          </div>
         )}
 
         <div className="bg-white p-8 rounded-lg shadow-lg backdrop-blur-md mb-8">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Add Bookmark</h1>
           <BookmarkForm userId={userId!} onAdded={() => { /* handle bookmark addition */ }} />
         </div>
 
         <div className="mt-8">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Your Bookmarks</h1>
           <BookmarksList userId={userId!} />
         </div>
       </div>
