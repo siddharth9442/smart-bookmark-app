@@ -78,9 +78,9 @@ A simple and secure bookmark manager built with Next.js and Supabase, featuring 
 ### Challenges & Solutions
 
 #### Challenge: Real-time bookmark sync across tabs  
-   **Problem**: Ensuring bookmarks added or deleted in one browser tab update instantly on all other open tabs without manual refresh.
+   **Problem**: Ensuring bookmarks added or deleted in one browser tab update instantly on all other open tabs without manual refresh.  
    **Solution**: Used Supabase Realtime subscriptions to listen for changes on the bookmarks table and update the React state accordingly.
 
 #### Challenge: Adapting to Next.js Without Prior Professional Experience  
-   **Problem**: Coming from a backend engineering background with no professional experience in Next.js, building a production-ready frontend application required understanding Next.js concepts such as routing, server/client components, API routes, and deployment patterns.
+   **Problem**: Coming from a backend engineering background with no professional experience in Next.js, building a production-ready frontend application required understanding Next.js concepts such as routing, server/client components, API routes, and deployment patterns.  
    **Solution**: Leveraged prior React knowledge from personal projects and used guidance from OpenAI to accelerate learning and implementation. Studied official documentation, followed best practices for project structure, and iteratively refactored the codebase to align with Next.js conventions, successfully delivering a fully functional application.
